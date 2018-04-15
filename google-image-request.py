@@ -24,24 +24,12 @@ for _ in tqdm(range(500)):
 URLS = []
 for x in browser.find_elements_by_xpath('//div[contains(@class,"rg_meta")]'):
     counter = counter + 1
-    print("Total Count:", counter)
-    print("Succsessful Count:", succounter)
-    tmp = json.loads(x.get_attribute('innerHTML'))["ou"]
-    imgtype = tmp.split('.')[-1]
-    URLS.append((tmp, imgtype))
-    print("URL:",tmp)
-
-    img = json.loads(x.get_attribute('innerHTML'))["ou"]
-    imgtype = json.loads(x.get_attribute('innerHTML'))["ity"]
-    try:
-        req = Request(img, headers={'User-Agent': header})
-        raw_img = urlopen(req).read()
-        File = open(os.path.join(searchterm , searchterm + "_" + str(counter) + "." + imgtype), "wb")
-        File.write(raw_img)
-        File.close()
-        succounter = succounter + 1
-    except:
-            print("can't get img")
+    #print("Total Count:", counter)
+    #print("Succsessful Count:", succounter)
+    url_ = json.loads(x.get_attribute('innerHTML'))["ou"]
+    imgtype = url_.split('.')[-1]
+    URLS.append((url_, imgtype))
+    #print("URL:",url_)
 
 import requests
 directory = '/home/jonathan/Pictures/'
